@@ -24,6 +24,9 @@ int main() {
     int playerNumber[5];
     int playerRating[5];
 
+    //Declare a variable for the user to select menu options with
+    char userSelect;
+
     //Collect player data
     for(int i = 1; i <=5; i++) {
         printf("Enter player %d's jersey number:\n", i);
@@ -36,6 +39,16 @@ int main() {
     //Call the roster output function
     outputRoster(playerNumber, playerRating);
     
+    //Display the menu for the user
+    printf("\nMENU\n");
+    printf("u - Update player rating\n");
+    printf("a - Output players above a rating\n");
+    printf("r - Replace player\n");
+    printf("o - Output roster\n");
+    printf("q - Quit\n");
+    printf("\nChoose an option:\n");
+    scanf("%c ", &userSelect);
+
     //End
     return 0;
 }
