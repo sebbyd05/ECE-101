@@ -18,6 +18,28 @@ void outputRoster(int numberArray[], int ratingArray[]) {
     }
 }
 
+//A function that allows the user to update a player rating, only needs the rating to be pass through
+void updatePlayer(int numberArray[], int *ratingArray) {
+    //Variables to allow code to find what to update
+    int lookNum, newRating, cellToUpdate;
+    //Attain desired update`
+    printf("\n");
+    printf("\nEnter a jersey number:\n");
+    scanf("%d ", &lookNum);
+    printf("Enter a new rating for player:\n");
+    scanf("%d", &newRating);
+    
+    //Search for the cell that has the specified jersey number
+    for(int i = 0; i <= 4; i++) {
+        if(numberArray[i] == lookNum) {
+            cellToUpdate = i;
+        }
+    }
+
+    //Once it has the cell to update, it updates the pointer
+    ratingArray[cellToUpdate] = newRating; 
+}
+
 //Creating the function the user interacts with initally
 int main() {
     //Declare the arrays for later
@@ -39,15 +61,27 @@ int main() {
     //Call the roster output function
     outputRoster(playerNumber, playerRating);
     
-    //Display the menu for the user
-    printf("\nMENU\n");
-    printf("u - Update player rating\n");
-    printf("a - Output players above a rating\n");
-    printf("r - Replace player\n");
-    printf("o - Output roster\n");
-    printf("q - Quit\n");
-    printf("\nChoose an option:\n");
-    scanf("%c ", &userSelect);
+    //Start an infinite loop for the menu
+    while (1==1) {
+        //Display the menu for the user
+        printf("\nMENU\n");
+        printf("u - Update player rating\n");
+        printf("a - Output players above a rating\n");
+        printf("r - Replace player\n");
+        printf("o - Output roster\n");
+        printf("q - Quit\n");
+        printf("\nChoose an option:\n");
+        scanf(" %c", &userSelect);
+        scanf("%*c");
+
+        //Detects what the user inputs to go to the requested function            
+        if (userSelect == 'q') {
+            //If the user wants to quit, exit the program
+            break;
+        } else if(userSelect == 'u') {
+            updatePlayer(playerNumber, &playerRating[0]);
+        }
+    }
 
     //End
     return 0;
