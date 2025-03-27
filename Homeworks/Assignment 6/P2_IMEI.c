@@ -35,6 +35,14 @@ int calc_sum(int IMEI[], int size) {
     return sum;
 }
 
+//Creating a function that turns a string into the array for the IMEI.
+void programArray(int *IMEI, int imeiPreArray) {
+    for(int i = 15; i >= 0; i--) {
+        IMEI[i] = imeiPreArray % 10;
+        imeiPreArray /= 10;
+    }
+}
+
 //Make the main section of the program
 int main() {
     //Declaring the variables
@@ -48,6 +56,10 @@ int main() {
         return -1;
     }
 
-    
+    //Start the loop that runs for the entirety of the program from here on out, and closes when there are no more IMEIs to read
+    while(fscanf(inFile, "%d", &imeiPreArray) != EOF) {
+        programArray(&IMEI[0], imeiPreArray);
+        print_IMEI(IMEI, 15);
+    }
 }
 
