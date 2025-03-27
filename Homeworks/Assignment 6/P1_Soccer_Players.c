@@ -40,6 +40,60 @@ void updatePlayer(int numberArray[], int *ratingArray) {
     ratingArray[cellToUpdate] = newRating; 
 }
 
+void outputAbove(int numberArray[], int ratingArray[]) {
+    //Declare variables
+    int ratingAbove;
+
+    //Ask user what they want the desired rating to be
+    printf("\n");
+    printf("\nEnter a rating:\n");
+    scanf("%d", &ratingAbove);
+
+    //Format for printed list
+    printf("ABOVE %d", ratingAbove);
+    
+    //Begin searching and printing players that fit criteria
+    for(int i = 0; i < 5; i++) {
+        if(ratingArray[i] > ratingAbove) {
+            printf("\nPlayer %d -- Jersey number: %d, Rating: %d", (i + 1), numberArray[i], ratingArray[i]);
+        }
+    }
+
+    printf("\n");
+}
+
+//A function that allows the user to completely replace a player
+void replacePlayer(int *numberArray, int *ratingArray) {
+    //Declare variables for this function
+    int oldJersey, foundCell = NULL;
+
+    //Ask the user what jersey they want to replace
+    printf("\n");
+    printf("Enter a jersey number:\n");
+    scanf("%d", &oldJersey);
+
+    //Locate the cell that contains that jersey
+    for(int i = 0; i < 5; i++) {
+        if(numberArray[i] == oldJersey) {
+            foundCell = i;
+            break;
+        }
+    }
+
+    //Incase noone has that jersey #
+    if(foundCell == NULL) {
+        printf("Could not find that jersey");
+        return;
+    }
+
+    //Ask the user and replace values
+    printf("Enter a new jersey number:\n");
+    scanf("%d", &numberArray[foundCell]);
+    printf("Enter a rating for the new player:\n");
+    scanf("%d", &ratingArray[foundCell]);
+
+}
+
 //Creating the function the user interacts with initally
 int main() {
     //Declare the arrays for later
@@ -83,6 +137,10 @@ int main() {
         } else if(userSelect == 'o') {
             //Output the roster if the user selects o
             outputRoster(playerNumber, playerRating);
+        } else if(userSelect == 'a') {
+            outputAbove(playerNumber, playerRating);
+        } else if(userSelect == 'r') {
+            replacePlayer(&playerNumber[0], &playerRating[0]);
         }
     }
 
