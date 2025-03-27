@@ -36,7 +36,7 @@ int calc_sum(int IMEI[], int size) {
 }
 
 //Creating a function that turns a string into the array for the IMEI.
-void programArray(int *IMEI, int imeiPreArray) {
+void programArray(int *IMEI, unsigned long long int imeiPreArray) {
     for(int i = 15; i >= 0; i--) {
         IMEI[i] = imeiPreArray % 10;
         imeiPreArray /= 10;
@@ -46,7 +46,8 @@ void programArray(int *IMEI, int imeiPreArray) {
 //Make the main section of the program
 int main() {
     //Declaring the variables
-    int IMEI[15], checkDigit, imeiPreArray;
+    int IMEI[15], checkDigit;
+    unsigned long long int imeiPreArray;
     FILE *inFile = NULL;
 
     //Begin opening file
@@ -57,7 +58,7 @@ int main() {
     }
 
     //Start the loop that runs for the entirety of the program from here on out, and closes when there are no more IMEIs to read
-    while(fscanf(inFile, "%d", &imeiPreArray) != EOF) {
+    while(fscanf(inFile, "%lld", &imeiPreArray) != EOF) {
         programArray(&IMEI[0], imeiPreArray);
         print_IMEI(IMEI, 15);
     }
