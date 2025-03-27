@@ -25,7 +25,7 @@ void updatePlayer(int numberArray[], int *ratingArray) {
     //Attain desired update`
     printf("\n");
     printf("\nEnter a jersey number:\n");
-    scanf("%d ", &lookNum);
+    scanf("%d", &lookNum);
     printf("Enter a new rating for player:\n");
     scanf("%d", &newRating);
     
@@ -80,6 +80,9 @@ int main() {
             break;
         } else if(userSelect == 'u') {
             updatePlayer(playerNumber, &playerRating[0]);
+        } else if(userSelect == 'o') {
+            //Output the roster if the user selects o
+            outputRoster(playerNumber, playerRating);
         }
     }
 
