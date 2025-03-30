@@ -53,7 +53,7 @@ int findCheck(int sumIn) {
 //Creating a function that turns a string into the array for the IMEI.
 void programArray(int *IMEI, FILE* IMEIfile, int *aliveAfter) {
     int tempDigit;
-    for(int i = 0; i <= 15; i++) {
+    for(int i = 0; i < 15; i++) {
         //If statement that ensures not at the end of file
         if(fscanf(IMEIfile, "%d", &tempDigit) != EOF) {
             IMEI[i] = tempDigit;
@@ -68,7 +68,6 @@ void programArray(int *IMEI, FILE* IMEIfile, int *aliveAfter) {
 int main() {
     //Declaring the variables
     int IMEI[15], checkDigit, calculatedSum, aliveAfter = 1;
-    unsigned long long int imeiPreArray;
     FILE *inFile = NULL;
 
     //Begin opening file
