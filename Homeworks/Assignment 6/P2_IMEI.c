@@ -27,11 +27,7 @@ int calc_sum(int IMEI[], int size) {
 
     //Add even digits
     for(int i = 1; i < size; i += 2) {
-        if((IMEI[i] * 2) >= 10) {
-            sum += (((IMEI[i] * 2)/10) + ((IMEI[i] * 2) %10) );
-        } else {
-            sum += (IMEI[i] * 2);
-        }
+        sum += (((IMEI[i] * 2)/10) + ((IMEI[i] * 2) %10) );
     }
 
     //Return the sum
