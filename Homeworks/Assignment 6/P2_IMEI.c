@@ -47,22 +47,23 @@ int findCheck(int sumIn) {
 
 
 //Creating a function that turns a string into the array for the IMEI.
-void programArray(int *IMEI, unsigned long long int imeiPreArray) {
-    
-    //Multiply the IMEI by 10 so that the digits line up properly.
-    imeiPreArray *= 10;
-    //Store the digits, counts down because the order is reversed.
-    for(int i = 15; i >= 0; i--) {
-        IMEI[i] = imeiPreArray % 10;
-        imeiPreArray /= 10;
+void programArray(int *IMEI, FILE* IMEIfile, int *aliveAfter) {
+    int tempDigit;
+    for(int i = 0; i < 15; i++) {
+        //If statement that ensures not at the end of file
+        if(fscanf(IMEIfile, "%d", &tempDigit) != EOF) {
+            IMEI[i] = tempDigit;
+        } else {
+            *aliveAfter = 0;
+            return;
+        }
     }
 }
 
 //Make the main section of the program
 int main() {
     //Declaring the variables
-    int IMEI[15], checkDigit, calculatedSum;
-    unsigned long long int imeiPreArray;
+    int IMEI[15], checkDigit, calculatedSum, aliveAfter = 1;
     FILE *inFile = NULL;
 
     //Begin opening file
@@ -73,9 +74,14 @@ int main() {
     }
 
     //Start the loop that runs for the entirety of the program from here on out, and closes when there are no more IMEIs to read
-    while(fscanf(inFile, "%lld", &imeiPreArray) != EOF) {
+    while(1 == 1) {
         //Program the array to the scanned in IMEI
-        programArray(&IMEI[0], imeiPreArray);
+        programArray(&IMEI[0], inFile, &aliveAfter);
+        //Check if the function reached the end of file, and quit if it did.
+        if(aliveAfter == 0) {
+            break;
+        }
+
         //Calculate the sum for the later printing
         calculatedSum = calc_sum(IMEI, 15);
         //Find what the check digit needs to be
