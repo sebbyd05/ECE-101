@@ -53,6 +53,33 @@ int findNumOfName(char names[][25], char searchLetter, int size) {
     return nameCount;
 }
 
+//Function that counts the number of accounts with debt over a specified amount
+int findNumAbove(double debts[], int numAbove, int size) {
+    int numAboveCount = 0;
+
+    //Scan each cell of the debt table
+    for(int i = 0; i < size; i++) {
+        if(debts[i] > (double)numAbove) {
+            numAboveCount++;
+        }
+    }
+
+    return numAboveCount;
+}
+
+//Function that counts the number of people with zero debt
+int numNoDebt(double debts[], int size) {
+    int numZero = 0;
+    
+    //Scan each cell of the debt table
+    for(int i = 0; i < size; i++) {
+        if(debts[i] <= 0.0) {
+            numZero++;
+        }
+    }
+
+    return numZero;
+}
 
 int main(void) {
    int size;
@@ -82,6 +109,8 @@ int main(void) {
     printf("Customers: %d\n", size);
     printf("Highest debt: %s\n", names[highestDebtMem]);
     printf("Customer names that start with '%c': %d\n", firstLetter, findNumOfName(names, firstLetter, size));
+    printf("Customers with debt over $%d: %d\n", debtLimit, findNumAbove(debts, debtLimit, size));
+    printf("Customers debt free: %d\n", numNoDebt(debts, size));
    
    
     return 0;
