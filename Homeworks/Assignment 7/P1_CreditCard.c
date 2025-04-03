@@ -40,6 +40,19 @@ int findHighestDebt(double debts[], int size) {
     return highestDebtMem;
 }
 
+//Function that finds the number of people with a name that starts with a letter
+int findNumOfName(char names[][25], char searchLetter, int size) {
+    int nameCount = 0;
+    //Begin searching the array
+    for(int i = 0; i < size; i++) {
+        if(names[i][0] == searchLetter) {
+            //Add one to the name count if the name starts with the letter being searched for
+            nameCount++;
+        }
+    }
+    return nameCount;
+}
+
 
 int main(void) {
    int size;
@@ -57,8 +70,8 @@ int main(void) {
    ReadCustomerData(names, states, debts, size);
 
    // Input debt limit, search phrase, and state
-    scanf("%d", &debtLimit);
-    scanf("%c ", &firstLetter);
+    scanf("%d ", &debtLimit);
+    scanf("%c", &firstLetter);
     scanf("%s", state);
 
     //Find the cell with the highest debt
@@ -68,6 +81,7 @@ int main(void) {
     printf("U.S. Report\n");
     printf("Customers: %d\n", size);
     printf("Highest debt: %s\n", names[highestDebtMem]);
+    printf("Customer names that start with '%c': %d\n", firstLetter, findNumOfName(names, firstLetter, size));
    
    
     return 0;
