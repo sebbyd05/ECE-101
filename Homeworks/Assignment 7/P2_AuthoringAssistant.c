@@ -17,6 +17,25 @@ void PrintMenu() {
     printf("q - Quit\n");
 }
 
+//Function that takes user input to call other functions
+void ExecuteMenu(char choice, char string[512]) {
+    if (choice = 'c') {
+        printf("Number of non-whitespace characters %d", GetNumOfNonWSCharacters(string));
+    }
+}
+
+//Function that counts number of non whitespace charecters in a string
+int GetNumOfNonWSCharacters(char string[512]) {
+    int count = 0;
+    for(int i = 0; string[i] != '\n'; i++) {
+        if((string[i] >= 'a' && string[i] <= 'z') || (string[i] >= 'A' && string[i] <= 'Z')) {
+            count++;
+        }
+    }
+    
+    return count;
+}
+
 int main() {
     //Define the string
     char userString[512];
@@ -27,7 +46,13 @@ int main() {
     fgets(userString, 512, stdin);
     printf("\nYou entered: %s", userString);
     
-    PrintMenu();
-
-    return 0;
+    while(1==1) {
+        PrintMenu();
+        fscanf("%c ", &userOption);
+        if(userOption == 'q') {
+            return 0;
+        } else if(userOption == 'c' || userOption == 'w' || userOption == 'f' || userOption == 'r') {
+            ExecuteMenu(userOption, userString);
+        }
+    }
 }
