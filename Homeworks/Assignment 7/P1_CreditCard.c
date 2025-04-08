@@ -81,6 +81,66 @@ int numNoDebt(double debts[], int size) {
     return numZero;
 }
 
+//Function that counts the number of customers within a state
+int countState(char statesArray[][25], char searchArray[], int size) {
+    int numInState = 0;
+    for(int i = 0; i < size; i++) {
+        if(strcmp(statesArray[i], searchArray) == 0) {
+            numInState++;
+        }
+    }
+
+    return numInState;
+}
+
+//Function that returns the memmory location of person with the highest debt as an interger
+int stateHighestDebt(char statesArray[][25], char searchState[], double debts[], int size) {
+    int highestSeen = 0;
+    for(int i = 0; i < size; i++) {
+        if(strcmp(statesArray[i], searchState) == 0 && debts[i] > debts [highestSeen]) {
+            highestSeen = i;
+        }
+    }
+
+    return highestSeen;
+}
+
+//Function that returns how many customers in a state have names that sart with a certain letter
+int stateNumLetter(char statesArray[][25], char searchState[], char names[][25], char searchLetter, int size) {
+    int numWithLetter = 0;
+    for(int i = 0; i < size; i++) {
+        if(strcmp(statesArray[i], searchState) == 0 && names[i][0] == searchLetter) {
+            numWithLetter++;
+        }
+    }
+
+    return numWithLetter;
+} 
+
+//Finds the number of people in a state with a debt above a set number
+int stateNumAbove(char statesArray[][25], char searchState[], double debts[], int searchForAbve, int size) {
+    int numAbove = 0;
+    for(int i = 0; i < size; i++) {
+        if(strcmp(statesArray[i], searchState) == 0 && debts[i] > (double)searchForAbve) {
+            numAbove++;
+        }
+    }
+
+    return numAbove;
+}
+
+//Finds how many coustomers in a state with no debt
+int stateNoDebt(char statesArray[][25], char searchState[], double debts[], int size) {
+    int numNone = 0;
+    for(int i = 0; i < size; i++) {
+        if(strcmp(statesArray[i], searchState) == 0 && debts[i] == 0.0) {
+            numNone++;
+        }
+    }
+
+    return numNone;
+}
+
 int main(void) {
    int size;
    int debtLimit, highestDebtMem;
@@ -111,7 +171,14 @@ int main(void) {
     printf("Customer names that start with '%c': %d\n", firstLetter, findNumOfName(names, firstLetter, size));
     printf("Customers with debt over $%d: %d\n", debtLimit, findNumAbove(debts, debtLimit, size));
     printf("Customers debt free: %d\n", numNoDebt(debts, size));
-   
-   
+
+    //Begin printing stats for the chosen state
+    printf("\n%s Report\n", state);
+    printf("Customers: %d\n", countState(states, state, size));
+    printf("Highest debt: %s\n", names[stateHighestDebt(states, state, debts, size)]);
+    printf("Customer names that start with '%c': %d\n", firstLetter, stateNumLetter(states, state, names, firstLetter, size));
+    printf("Customers with debt over $%d: %d\n", debtLimit, stateNumAbove(states, state, debts, debtLimit, size));
+    printf("Customers debt free: %d\n", stateNoDebt(states, state, debts, size));
+
     return 0;
 }
