@@ -42,12 +42,40 @@ int GetNumOfWords(char string[512]) {
     return count;
 }
 
+//Fixes the capitalization of a string
+void FixCapitalization(char string[512]) {
+    int nextNeedsCapitalized = 0;
+    for(int i = 0; string[i] != '\0'; i++) {
+        if (i == 0) {
+            //Ensures the first letter of the string is capitalized
+            if(string[i] >= 'a' && string[i] <= 'z') {
+                string[i] = (string[i] - 32);
+            }
+            //Checks to see if the charecter being scanned is a punctuation mark
+            if(string[i] == '.' || string[i] == '!' || string[i] == '?') {
+                nextNeedsCapitalized = 1;
+            }
+            //Once it continues, see if the next charecter needs to be capitalized, but it only needs to be called if the previous charecter isn't seen as a punctuation mark
+            else if(nextNeedsCapitalized == 1) {
+                if(string[i] >= 'a' && string[i] <= 'z') {
+                    string[i] = (string[i] - 32);
+                    nextNeedsCapitalized = 0;
+                } else if(string[i] >= 'A' && string[i] <= 'Z') {
+                    nextNeedsCapitalized = 0;
+                }
+            }
+        }
+    }
+}
+
 //Function that takes user input to call other functions
 void ExecuteMenu(char choice, char string[512]) {
     if (choice == 'c') {
         printf("Number of non-whitespace characters: %d\n", GetNumOfNonWSCharacters(string));
     } else if (choice == 'w') {
         printf("Number of words: %d\n", GetNumOfWords(string));
+    } else if (choice == 'f') {
+        FixCapitalization(string);
     }
     return;
 }
