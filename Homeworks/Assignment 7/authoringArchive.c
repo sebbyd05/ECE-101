@@ -15,14 +15,22 @@ void PrintMenu() {
     printf("f - Fix capitalization\n");
     printf("r - Replace all !'s\n");
     printf("q - Quit\n");
-    return;
+}
+
+//Function that takes user input to call other functions
+void ExecuteMenu(char choice, char string[512]) {
+    if (choice == 'c') {
+        printf("Number of non-whitespace characters: %d\n", GetNumOfNonWSCharacters(string));
+    } else if (choice == 'w') {
+        printf("Number of words: %d\n", GetNumOfWords(string));
+    }
 }
 
 //Function that counts number of non whitespace charecters in a string
 int GetNumOfNonWSCharacters(char string[512]) {
     int count = 0;
-    for(int i = 0; string[i] != '\0'; i++) {
-        if(string[i] != ' ' && string[i] != '\n') {
+    for(int i = 0; string[i] != '\n'; i++) {
+        if(string[i] != ' ') {
             count++;
         }
     }
@@ -34,22 +42,12 @@ int GetNumOfNonWSCharacters(char string[512]) {
 int GetNumOfWords(char string[512]) {
     int count = 0;
     for(int i = 0; string[i] != '\0'; i++) {
-        if((string[i] == ' ' && string[(i+1)] != ' ') || ((string[i] == '.' || string[i] == '!' || string[i] == '?') && (string[(i+1)] == '\0' || string[(i+1)] == '\n'))) {
+        if((string[i] == ' ' && string[(i+1)] != ' ') || (string[i] == '.' && (string[(i+1)] == ' ' || string[(i+1)] == '\0' || string[(i+1)] == '\n'))) {
             count++;
         } 
     }
 
     return count;
-}
-
-//Function that takes user input to call other functions
-void ExecuteMenu(char choice, char string[512]) {
-    if (choice == 'c') {
-        printf("Number of non-whitespace characters: %d\n", GetNumOfNonWSCharacters(string));
-    } else if (choice == 'w') {
-        printf("Number of words: %d\n", GetNumOfWords(string));
-    }
-    return;
 }
 
 int main() {
