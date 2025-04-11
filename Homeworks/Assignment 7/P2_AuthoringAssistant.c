@@ -51,21 +51,22 @@ void FixCapitalization(char string[512]) {
             if(string[i] >= 'a' && string[i] <= 'z') {
                 string[i] = (string[i] - 32);
             }
-            //Checks to see if the charecter being scanned is a punctuation mark
-            if(string[i] == '.' || string[i] == '!' || string[i] == '?') {
+        }
+        //Checks to see if the charecter being scanned is a punctuation mark
+        if(string[i] == '.' || string[i] == '!' || string[i] == '?') {
                 nextNeedsCapitalized = 1;
             }
-            //Once it continues, see if the next charecter needs to be capitalized, but it only needs to be called if the previous charecter isn't seen as a punctuation mark
-            else if(nextNeedsCapitalized == 1) {
-                if(string[i] >= 'a' && string[i] <= 'z') {
-                    string[i] = (string[i] - 32);
-                    nextNeedsCapitalized = 0;
-                } else if(string[i] >= 'A' && string[i] <= 'Z') {
-                    nextNeedsCapitalized = 0;
-                }
+        //Once it continues, see if the next charecter needs to be capitalized, but it only needs to be called if the previous charecter isn't seen as a punctuation mark
+        else if(nextNeedsCapitalized == 1) {
+            if(string[i] >= 'a' && string[i] <= 'z') {
+                string[i] = (string[i] - 32);
+                nextNeedsCapitalized = 0;
+            } else if(string[i] >= 'A' && string[i] <= 'Z') {
+                nextNeedsCapitalized = 0;
             }
         }
     }
+    return;
 }
 
 //Function that takes user input to call other functions
@@ -76,6 +77,7 @@ void ExecuteMenu(char choice, char string[512]) {
         printf("Number of words: %d\n", GetNumOfWords(string));
     } else if (choice == 'f') {
         FixCapitalization(string);
+        printf("Edited text: %s", string);
     }
     return;
 }
