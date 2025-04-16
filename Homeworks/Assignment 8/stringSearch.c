@@ -1,3 +1,9 @@
+/*
+Author: Sebastian Dziedzic
+Date: 4/15/2025
+I/O: A file, the name of a file to open, the string that you want to search for
+Algorithm: We only need to check if something in the string has the letter thats the same as the first letter in the search string, so if it does we count how many letters match up and return true if the same ammount match up as the amount being searched for.
+*/
 #include<stdio.h>
 #include<string.h>
 #include<stdbool.h>
@@ -11,13 +17,16 @@ bool lineSearch(char original[], char searchingFor[]) {
         numberNeeded++;
     }
 
+    //Goes one by one, and if the charecter seen matches the first charecter of the search string, it enters a new for loop
     for(int i = 0; original[i] != '\0'; i++) {
         if(original[i] == searchingFor[0]) {
             for(int j = 0; j < numberNeeded; j++) {
+                //This for loop goes one by one comparing the original string to the string being searched for untill the number of charecters that are being searched for have been compared
                 if(original[(i+j)] == searchingFor[j]) {
                     numberFound++;
                 }
             }
+            //If every charecter searched matches the charecter being searched for, these two will be equal and this will return true
             if(numberNeeded == numberFound) {
                 return true;
             }
@@ -25,7 +34,7 @@ bool lineSearch(char original[], char searchingFor[]) {
         }
     }
     
-    //Return false if the number found matches the number needed
+    //Return false if the number found does not match the number needed
     return false;
 
 }
@@ -35,9 +44,9 @@ int main() {
     char fileName[30];
     FILE* currentFile = NULL;
     printf("File input:");
-    scanf("%s", &fileName);
+    scanf("%s", fileName);
     
-    //Open the file the user asked for
+    //Open the file the user asked for, return an error if that file can't be opened
     currentFile = fopen(fileName, "r");
     if(currentFile == NULL) {
         printf("\nCouldn't open that file.");
@@ -86,12 +95,11 @@ int main() {
         }
     }
 
-    printf("You are searching for: %s", searchString);
-
     //Print any line that has what is being searched for
+    printf("Output:\n");
     for(int i = 0; i < lineCount; i++) {
         if(lineSearch(stringFromFile[i], searchString) == true) {
-            printf("%s", stringFromFile[i]);
+            printf("%d %s\n",(i+1), stringFromFile[i]);
         }
     }
 
