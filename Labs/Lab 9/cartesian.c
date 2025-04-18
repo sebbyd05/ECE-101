@@ -21,7 +21,9 @@ int main(){
 
         //Get user input
         printf("Enter Cartesian coordinate values for x, y and z: ");
-        scanf("%lf%lf%lf", &userIn.x, &userIn.y, &userIn.z);
+        scanf("%lf", &userIn.x);
+        scanf("%lf", &userIn.y);
+        scanf("%lf", &userIn.z);
 
         //Convert to sphere
         sphereOut.rho = sqrt((pow(userIn.x, 2.0)+pow(userIn.y, 2.0)+pow(userIn.z, 2.0)));
@@ -29,15 +31,14 @@ int main(){
         sphereOut.phi_degree = (atan((sqrt(pow(userIn.x, 2.0)+pow(userIn.y, 2.0)))/userIn.z) * (180.0/ M_PI));
 
         //Output results
-        printf("its spherical value: rho = %.2lf, theta (degrees) = %.2lf, phi (degrees) = %.2lf", sphereOut.rho, sphereOut.theta_degree, sphereOut.phi_degree);
+        printf("its spherical value: rho = %.3lf, theta (degrees) = %.3lf, phi (degrees) = %.3lf", sphereOut.rho, sphereOut.theta_degree, sphereOut.phi_degree);
 
         //Ask the user if they wish to continue
-        printf("\nContinue (n for no)");
-        scanf("%c", &repeat);
+        printf("\nContinue (n for no)? ");
+        scanf(" %c", &repeat);
         if(repeat == 'n') {
-            break;
+            return 0;
         }
     }
 
-    return 0;
 }
