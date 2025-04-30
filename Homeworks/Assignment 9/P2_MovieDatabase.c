@@ -39,6 +39,30 @@ void readDatabase(movies movieList[], FILE* fileIn, int size) {
     return;
 }
 
+//Function that swaps two pieces of an array
+void swap(movies *x, movies *y){  
+    movies temp;  
+    temp = *x;  
+    *x = *y;  
+    *y = temp;  
+}
+
+//A function that sorts the movie array
+void selection_sort(movies x[], int size){  
+    int i, j, max;  
+    for (i = 0; i < size; i++) {  
+        max = i;
+        for (j = i; j < size; j++) {  
+            if (x[j].rating > x[max].rating) { 
+                max = j;
+            }
+        }
+        swap(&x[i], &x[max]);  
+    }  
+}  
+   
+
+    
 int main() {
     //Ask the user how many movies they want to compute:
     int userNum = 0;
@@ -54,6 +78,9 @@ int main() {
 
     //Have the read database function put all the movies into a database
     readDatabase(movieList, inFile, userNum);
+
+    //Sort the movies by rating
+    selection_sort(movieList, userNum);
 
     return 0;
 }
