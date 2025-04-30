@@ -225,7 +225,7 @@ int searchDuration(movies movieList[], int size) {
 
     //Now search the database for movies that match the criteria
     for(int i = 0; i < size; i++) {
-        if(movieList[i].year >= durationAbove) {
+        if(movieList[i].duration >= durationAbove) {
             numMatch++;
             //Store the memmory adderess of the cells that should be printed to the addressToPrint array for later, and increase how many need to be printed if less than 10 have been seen so far
             if(numPrinted < 10) {
