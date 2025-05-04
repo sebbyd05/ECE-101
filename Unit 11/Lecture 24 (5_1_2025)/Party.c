@@ -52,8 +52,16 @@ int main() {
 
         temp = temp->next;
     }
+    
+    //Add a block
+    Player* insertedPlayer = (Player*)malloc(sizeof(Player));
+    
+    insertedPlayer->level = 3;
+    strcpy(insertedPlayer->name, "Rob");
 
-   
+    insertedPlayer->next = player2->next;
+    player2->next = insertedPlayer;
+
     // Step 6: Free the list
     Player *temp2 = head;
     Player *freeP = temp2;
